@@ -33,7 +33,7 @@ https://github.com/Hiroshi-Sugimura/EL_dev_arduino
 
 ## Authors
 
-神奈川工科大学  工学部  電気電子情報工学科; Dept. of Electronics, Faculty of Creative Engineering, Kanagawa Institute of Technology
+神奈川工科大学  工学部  電気電子情報工学科; Dept. of Electric and Electronics, Faculty of Engineering, Kanagawa Institute of Technology
 
 杉村　博; SUGIMURA, Hiroshi
 
