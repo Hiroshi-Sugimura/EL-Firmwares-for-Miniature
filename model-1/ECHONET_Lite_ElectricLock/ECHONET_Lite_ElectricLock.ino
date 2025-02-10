@@ -83,6 +83,7 @@ void setup() {
   Serial.begin(115200);                         // シリアル開始
 
   pinMode(DOOR_pin,INPUT_PULLUP);
+  pinMode(KEY_pin ,INPUT);
   pinMode(13,OUTPUT);
   digitalWrite(13,HIGH);
 
@@ -129,7 +130,7 @@ void setup() {
 void loop() {
 
   //Serial.println(analogRead(DOOR_pin));
-  if(analogRead(DOOR_pin) >= 250) {
+  if(analogRead(DOOR_pin) >= 1200) {
     if (DOORflag != true) 
     {
       echo.update(0, 0xE3, { 0x41 });
