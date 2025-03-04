@@ -24,16 +24,16 @@
 Adafruit_NeoPixel strip(LEDSTRIP_NUM, LEDSTRIP_PIN, NEO_GRB + NEO_KHZ800);
 uint8_t Led_R = 255, Led_G = 255, Led_B = 255;
 uint8_t FanPower = 225;
-uint8_t Brightness = 95 + 20 * 5;
+uint8_t Brightness = 15 + 30 * 5;
 bool LowverLed = false;       // ルーバーLED用状態変数
 bool SaveEnergyMode = false;  // 節電動作設定
 
 //--------------ENV_VAL
-int FANPOWER_TABLE[9] = { 0, 205, 205, 205, 215, 225, 235, 245, 255 };
+int FANPOWER_TABLE[9] = { 0, 143, 159, 175, 191, 207, 223, 239, 255 };
 
 //--------------WIFI
-#define WIFI_SSID "wifi ssid"
-#define WIFI_PASS "wifi password"
+#define WIFI_SSID "wifi ssid"      // !!!! enter your ssid
+#define WIFI_PASS "wifi password"  // !!!! enter your password
 
 WiFiUDP elUDP;
 IPAddress myip;
@@ -72,10 +72,10 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
           if (edt[0] == 0x30) {                                                            // ON 0x30
             Serial.println("電源0x80 : 0x30 ON");                                          // 状態をシリアルへ出力
             uint8_t *x = const_cast<uint8_t *>(echo.devices[0].GetPDCEDT(0xB0).getEDT());  // 風量の状態を取得
-            if (*x = 0x41) {                                                               // 自動であれば5段階目とする
-              Brightness = 95 + 20 * 5;
+            if (*x == 0x41) {                                                              // 自動であれば5段階目とする
+              Brightness = 15 + 30 * 5;
             } else {
-              Brightness = 95 + 20 * (*x - 0x30);
+              Brightness = 15 + 30 * (*x - 0x30);
             }
             LowverLed = true;  // ルーバー状態変数
             strip.clear();     // LEDテープの設定
@@ -141,7 +141,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
         case 0xA0:                                         // 風量設定 0xA0
           if (0x31 <= edt[0] && edt[0] <= 0x38) {          // 風量レベル[0x31--0x38]
             Serial.printf("風量レベル A0: %d\n", edt[0]);  // 状態をシリアルへ出力
-            Brightness = 95 + 20 * (edt[0] - 0x30);
+            Brightness = 15 + 30 * (edt[0] - 0x30);
             FanPower = FANPOWER_TABLE[(edt[0] - 0x30)];  // 風量
             if (LowverLed) {
               strip.clear();  // LEDテープの設定
@@ -162,7 +162,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
             ret = true;                             // 処理成功
           } else if (edt[0] == 0x41) {              // 風量自動[0x41]
             Serial.printf("レベル A0: 自動 0x41");  // 状態をシリアルへ出力
-            Brightness = 95 + 20 * (edt[0] - 0x30);
+            Brightness = 15 + 30 * (edt[0] - 0x30);
             FanPower = FANPOWER_TABLE[(edt[0] - 0x30)];  // 風量
             if (LowverLed) {
               strip.clear();  // LEDテープの設定
@@ -190,7 +190,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
           switch (edt[0]) {
             case 0x41:                                        // 自動運転[0x41]
               Serial.println("運転モード 0xB0 : 自動 0x41");  // 状態をシリアルへ出力
-              Brightness = 95 + 20 * 5;                       // 風量を5段階目(自動)へ設定
+              Brightness = 15 + 30 * 5;                       // 風量を5段階目(自動)へ設定
               FanPower = FANPOWER_TABLE[5];                   // 風量の変更
               Led_R = 255, Led_G = 255, Led_B = 255;          // LEDテープの色(モード)変更
               strip.clear();                                  // LEDテープの設定
@@ -218,7 +218,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
             case 0x42:                                        // 冷房運転[0x42]
               Serial.println("運転モード 0xB0 : 冷房 0x42");  // 状態をシリアルへ出力
-              Brightness = 95 + 20 * 5;                       // 風量を5段階目(自動)へ設定
+              Brightness = 15 + 30 * 5;                       // 風量を5段階目(自動)へ設定
               FanPower = FANPOWER_TABLE[5];                   // 風量の変更
               Led_R = 0, Led_G = 0, Led_B = 255;              // LEDテープの色(モード)変更
               strip.clear();                                  // LEDテープの設定
@@ -246,7 +246,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
             case 0x43:                                        // 暖房運転[0x43]
               Serial.println("運転モード 0xB0 : 暖房 0x43");  // 状態をシリアルへ出力
-              Brightness = 95 + 20 * 5;                       // 風量を5段階目(自動)へ設定
+              Brightness = 15 + 30 * 5;                       // 風量を5段階目(自動)へ設定
               FanPower = FANPOWER_TABLE[5];                   // 風量の変更
               Led_R = 255, Led_G = 35, Led_B = 0;             // LEDテープの色(モード)変更
               strip.clear();                                  // LEDテープの設定
@@ -274,7 +274,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
             case 0x44:                                        // 除湿運転[0x44]
               Serial.println("運転モード 0xB0 : 除湿 0x44");  // 状態をシリアルへ出力
-              Brightness = 95 + 20 * 5;                       // 風量を5段階目(自動)へ設定
+              Brightness = 15 + 30 * 5;                       // 風量を5段階目(自動)へ設定
               FanPower = FANPOWER_TABLE[5];                   // 風量の変更
               Led_R = 0, Led_G = 255, Led_B = 255;            // LEDテープの色(モード)変更
               strip.clear();                                  // LEDテープの設定
@@ -302,7 +302,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
             case 0x45:                                        // 送風運転[0x45]
               Serial.println("運転モード 0xB0 : 送風 0x45");  // 状態をシリアルへ出力
-              Brightness = 95 + 20 * 5;                       // 風量を5段階目(自動)へ設定
+              Brightness = 15 + 30 * 5;                       // 風量を5段階目(自動)へ設定
               FanPower = FANPOWER_TABLE[5];                   // 風量の変更
               Led_R = 0, Led_G = 250, Led_B = 50;             // LEDテープの色(モード)変更
               strip.clear();                                  // LEDテープの設定
@@ -480,7 +480,7 @@ void setup() {
 void loop() {
 
   echo.recvProcess();
-  delay(200);
+  delay(100);
 }
 
 //////////////////////////////////////////////////////////////////////
