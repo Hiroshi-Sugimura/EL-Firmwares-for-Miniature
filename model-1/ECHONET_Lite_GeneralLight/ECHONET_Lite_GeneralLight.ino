@@ -137,7 +137,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
       case 0x43:
         Serial.println("点灯モード 常夜灯 B6 : 43");
-        LED_R = 255, LED_G = 48, LED_G = 0;
+        LED_R = 255; LED_G = 80; LED_B = 44;
         strip.clear();
         strip.setBrightness(MAX_LUMINANCE * 0.2);
         for (int i = 0; i < LED_NUM; i++)
@@ -150,7 +150,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
 
       case 0x45:
         Serial.println("点灯モード カラー灯 B6 : 45");
-        LED_R = 0, LED_G = 0, LED_B = 255;
+        LED_R = 0; LED_G = 0; LED_B = 255;
         strip.clear();
         strip.setBrightness(MAX_LUMINANCE * 0.5);
         for (int i = 0; i < LED_NUM; i++)
@@ -175,7 +175,7 @@ bool callback(byte tid[], byte seoj[], byte deoj[], byte esv, byte opc, byte epc
         {
           if (0 <= edt[2] && edt[2] <= 255)
           {
-            LED_R = edt[0], LED_G = edt[1], LED_B = edt[2];
+            LED_R = edt[0]; LED_G = edt[1]; LED_B = edt[2];
             Serial.printf("C0 : %d, %d, %d\n", LED_R, LED_G, LED_B);
             strip.clear();
             for (int i = 0; i < LED_NUM; i++)
