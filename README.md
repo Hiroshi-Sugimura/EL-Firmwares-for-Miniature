@@ -20,6 +20,12 @@
 
 https://github.com/Hiroshi-Sugimura/EL_dev_arduino
 
+
+# Objects and Properties
+
+各モデルのフォルダに対応オブジェクトとプロパティのリストをPDFで紹介しています。
+
+
 # Demonstration
 
 - 本ソフトウェアはミニチュアのECHONET Liteデバイスとして動作します。
