@@ -1,6 +1,6 @@
 //====================================================================
 // ECHONET Lite device firmware for Versatile miniature IoT device set (Model 1)
-// Software version 1.0
+// Software version 2.0
 // Download page: https://github.com/Hiroshi-Sugimura/EL-Firmwares-for-Miniature
 // Miniature IoT set Project site: https://miniature.sugi-lab.net/
 // Copyright (c) 2024, Sugimura Laboratory. All Rights Reserved.
