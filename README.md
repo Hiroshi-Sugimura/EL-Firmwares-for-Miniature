@@ -6,6 +6,13 @@
 **注意：本モジュールによるECHONET Lite通信規格上の保証はなく、SDKとしてもECHONET Liteの認証を受けておりません。
 また、製品化の場合には各社・各自がECHONET Lite認証を取得する必要があります。**
 
+# FirmV2　Compatible with 「Serial ESP Wi-Fi Configurator (Web Serial)」
+
+FirmV2は一度プログラミングを焼き込むと、以下のWEBサイトからUSB経由でWi-Fi設定の変更と再接続ができます。
+Serial ESP Wi-Fi Configurator (Web Serial): https://www.sugi-lab.net/utility/Serial_ESP_Wi-Fi_Configrator.html
+
+***注意：他のアプリケーションがminiature Unitと通信している場合は正常に動作しません。
+miniature Unitと通信するアプリは必ず一つにしてください。***
 
 ## Relation URL
 
