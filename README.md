@@ -6,10 +6,22 @@
 **注意：本モジュールによるECHONET Lite通信規格上の保証はなく、SDKとしてもECHONET Liteの認証を受けておりません。
 また、製品化の場合には各社・各自がECHONET Lite認証を取得する必要があります。**
 
-# FirmV2　Compatible with 「Serial ESP Wi-Fi Configurator (Web Serial)」
+# How to Use
+プログラムの焼き込み方は言語ごとに違います
 
+
+### MicroPython Version
+詳細は以下のリンクから確認してください
+
+  [HowtoUSE_MicroPython](docs/HowtoUSE_MicroPython.md)
+
+
+### Arduino Version
+  必用なライブラリをインストールして通常通りに焼いてください
+
+### FirmV2　Compatible with 「Serial ESP Wi-Fi Configurator (Web Serial)」
 FirmV2は一度プログラミングを焼き込むと、以下のWEBサイトからUSB経由でWi-Fi設定の変更と再接続ができます。
-Serial ESP Wi-Fi Configurator (Web Serial): https://www.sugi-lab.net/utility/Serial_ESP_Wi-Fi_Configrator.html
+-Serial ESP Wi-Fi Configurator (Web Serial): https://www.sugi-lab.net/utility/Serial_ESP_Wi-Fi_Configrator.html
 
 ***注意：他のアプリケーションがminiature Unitと通信している場合は正常に動作しません。
 miniature Unitと通信するアプリは必ず一つにしてください。***
@@ -20,12 +32,20 @@ miniature Unitと通信するアプリは必ず一つにしてください。***
 - 神奈川工科大学　杉村研究室: https://www.sugi-lab.net/
 
 # Environment
+MicroPython版とArduino IDE版の2種類で実装しています
 
-- Arduino IDEで実装しています
+### MicroPython版
+- ELPythonを内部で利用しています。
+- このモジュールは今回配布しているフォルダ内にECHONTLitフォルダとして含まれています。下記のGitHubでも配布しています。
+
+  https://github.com/Hiroshi-Sugimura/ELPython
+
+### Arduino IDE版
 - EL_dev_arduinoを内部で利用しています。
 - このモジュールはArduino IDEのライブラリ管理から追加できますが、下記のGitHubでも配布しています。
 
-https://github.com/Hiroshi-Sugimura/EL_dev_arduino
+  https://github.com/Hiroshi-Sugimura/EL_dev_arduino
+
 
 
 # Objects and Properties
