@@ -11,9 +11,6 @@ from machine import Pin, PWM
 import neopixel
 from Python_Serial_ESP_Wi_Fi_Configurator_Device import ESPWiFiConfigurator
 
-# WiFi設定
-WIFI_SSID = "ssid"
-WIFI_PASS = "pass"
 # ========== ハードウェア設定 ==========
 # LED ストリップ設定
 LEDSTRIP_PIN = 11
@@ -442,17 +439,9 @@ def userInfFunc( ip, tid, seoj, deoj, esv, opc, epc, pdcedt):
     print("|------------------------")
     return True
 
-
-# Wi-Fi 接続実行関数
-# def connect():
-#     wlan = network.WLAN(network.STA_IF)      # WLANオブジェクトを作成
-#     wlan.active(True)                        # WLANインタフェースを有効化
-#     wlan.connect(WIFI_SSID, WIFI_PASS)             # 指定されたSSIDとパスワードでWi-Fiに接続する
-#     while wlan.isconnected() == False:       # Wi-Fi接続が確立されるまで待機
-#         # print('Waiting for connection...')
-#         time.sleep(1)
-#     ip = wlan.ifconfig()[0]                  # IPアドレスのみを取得
-#     return ip                                # IPアドレスを返す
+# WiFi変数作成
+WIFI_SSID = "ssid"
+WIFI_PASS = "pass"
 
 # ========== メイン処理 ==========
 # main

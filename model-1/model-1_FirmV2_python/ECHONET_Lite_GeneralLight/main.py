@@ -5,6 +5,7 @@ import time
 import network
 from EchonetLite import EchonetLite, PDCEDT
 import neopixel
+from Python_Serial_ESP_Wi_Fi_Configurator_Device import ESPWiFiConfigurator
 
 # NeoPixel 初期化（ピン9に14個のLED）
 pin = machine.Pin(9, machine.Pin.OUT)
@@ -150,30 +151,26 @@ def userInfFunc(ip, tid, seoj, deoj, esv, opc, epc, pdcedt):
           "ESV:", el.getHexString(esv), "OPC:", el.getHexString(opc), "EPC:", el.getHexString(epc), pdcedt.printString())
     return True
 
-# Wi-Fi 設定（テスト用に実際のSSID/PASSを入れてください）
-WIFI_SSID = 'SSID'
-WIFI_PASS = 'PASS'
+# WiFi変数作成
+WIFI_SSID = "ssid"
+WIFI_PASS = "pass"
 
-def connect():#Wi-Fiの接続確認
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    wlan.connect(WIFI_SSID, WIFI_PASS)
-    while not wlan.isconnected():
-        time.sleep(1)
-    ip = wlan.ifconfig()[0]
-    return ip
-
-# 一般照明の状態、繋がった宣言として立ち上がったことをコントローラに知らせるINFを飛ばす
-    deoj = [0x05, 0xFF, 0x01]
-    edt = [0x01, 0x31]
-    el.sendMultiOPC1(deoj, EchonetLite.INF, 0x80, edt)  
-    
 
 # main
 try:
-    print('| IP:', connect())
+    # Wi-Fi設定・接続管理クラスの初期化（自動的に接続試行とシリアル監視を開始）
+    wifi_configurator = ESPWiFiConfigurator(default_ssid=WIFI_SSID, default_pass=WIFI_PASS)
+    
+    # Wi-Fi接続待ち
+    wlan = network.WLAN(network.STA_IF)
+    while not wlan.isconnected():
+        time.sleep(1)
+    print('| IP:', wlan.ifconfig()[0])
 
+    # EchonetLite 初期化（一般照明デバイスコード：0x029001）
     el = EchonetLite([[0x02, 0x90, 0x01]])  # General Lighting object
+    
+    deoj = [0x01, 0x30, 0x01]  # デバイスオブジェクトコード
 
     # 初期状態（消灯）
     for i in range(np.n):
@@ -195,8 +192,13 @@ try:
     el.update([0x02, 0x90, 0x01], 0x9F, [0x80, 0x81, 0x82, 0x83, 0x88, 0x8A, 0x8E, 0xB0, 0xB6, 0xC0, 0x9D, 0x9E, 0x9F])
 
     el.begin(userSetFunc, userGetFunc, userInfFunc)
-    print("| start")
+    print("| General Lighting start")
     print("|------------------------")
+    
+    # 一般照明の状態、繋がった宣言として立ち上がったことをコントローラに知らせるINFを飛ばす
+    #deoj = [0x05, 0xFF, 0x01]
+    #edt = [0x01, 0x31]
+    #el.sendMultiOPC1(deoj, EchonetLite.INF, 0x80, edt)  
 
     while True:
         el.recvProcess()

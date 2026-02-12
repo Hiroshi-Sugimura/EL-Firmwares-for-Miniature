@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# for rasp pi pico w
+# for esp32s3
 
 import machine
 import sys
@@ -9,6 +9,7 @@ import network
 import _thread
 from EchonetLite import EchonetLite, PDCEDT
 from machine import Pin, ADC
+from Python_Serial_ESP_Wi_Fi_Configurator_Device import ESPWiFiConfigurator
 
 # --- センサー設定 ---
 DOOR_SENSOR_PIN = ADC(Pin(12))       # ドアセンサー入力
@@ -69,19 +70,19 @@ def recv_thread():
             print(f"| 受信エラー: {e}")
         time.sleep(0.01)
 
-# --- Wi-Fi接続 ---
-def connect():
-    wlan = network.WLAN(network.STA_IF)
-    wlan.active(True)
-    wlan.connect(WIFI_SSID, WIFI_PASS)
-    while wlan.isconnected() == False:
-        time.sleep(1)
-    ip = wlan.ifconfig()[0]
-    return ip
 
 # --- メイン ---
 try:
-    print('| IP:', connect())
+    
+    # Wi-Fi設定・接続管理クラスの初期化（自動的に接続試行とシリアル監視を開始）
+    wifi_configurator = ESPWiFiConfigurator(default_ssid=WIFI_SSID, default_pass=WIFI_PASS)
+    
+    # Wi-Fi接続待ち
+    wlan = network.WLAN(network.STA_IF)
+    while not wlan.isconnected():
+        time.sleep(1)
+    print('| IP:', wlan.ifconfig()[0])
+    
     el = EchonetLite([[0x02, 0x6F, 0x01]])
 
     deoj = [0x02, 0x6F, 0x01]
@@ -154,3 +155,4 @@ except Exception as error:
     else:
         os._exit(0)
         
+

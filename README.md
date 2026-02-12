@@ -13,7 +13,7 @@
 ### MicroPython Version
 詳細は以下のリンクから確認してください
 
-  [HowtoUSE_MicroPython](docs/HowtoUSE_MicroPython.md)
+  [HowtoUSE_Miniature_IoT_UnitSet_for_MicroPython](docs/HowtoUSE_MicroPython.md)
 
 
 ### Arduino Version

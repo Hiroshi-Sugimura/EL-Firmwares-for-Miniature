@@ -4,7 +4,7 @@
 
 ## 1. ファームウエア焼き込み(Thonny)
 
-教材として開発環境はThonyがお勧め　
+Thonnyを使用します
 [https://thonny.org/](https://thonny.org/)
 
 
@@ -86,6 +86,8 @@
 5. ポートを選ぶ
 6. 「SSIDを入力」にWi-FiのSSIDを入力する
 7. 「Passwordを入力」にWi-FiのPASSを入力する
+8. 「設定送信」を押す
+9. IPアドレスが表示されたら設定完了
 
 ## 4. ライセンス
 
